@@ -9,10 +9,13 @@ This project explores the application of K-Means clustering to analyze customer 
 - **Outcomes**: Delivered actionable insights that can inform targeted marketing strategies and retention efforts.
 
 Part 1: Research Question:
+
 A1.  How can we use K-Means clustering to classify Telelink customers based on tenure, income, and monthly charges? We want to find out what long-term customers have in common and come up with ways to lower the churn rate.
+
 A2. The goal of this data analysis is to use K-Means clustering to classify Telelink customers based on their time with the company, income, and monthly charges. By finding different groups of customers, we hope to see patterns that help us understand why some customers stay longer and why others leave. This will help stakeholders create strategies to keep more customers, like offering special deals or improving services.
   a. It is important to specify, when it comes to clusters the correlation coefficient is not the main target. I will be focusing on the elbow method instead to analyze how tightly points fit within a cluster.
 Part II: Technique Justification
+
 B1. K-means clustering works by dividing customers into groups based on how similar they are to one another, using the variables like tenure, income, and monthly charges.
     i. K-means selects a number of clusters and assigns each customer to the nearest cluster based on the distance between their data points and centroid.
     ii. Then it adjusts the cluster centers until the groupings stabilize.
@@ -21,6 +24,7 @@ B1. K-means clustering works by dividing customers into groups based on how simi
     ii. Customers that could benefit from targeted marketing strategies to reduce
         churn.
 B2. One assumption of K-means clustering is that the number of clusters (k) must be chosen ahead of time. This assumes that the data can be divided into a set number of distinct groups, and the data points within each cluster are more similar to each other than to points in other clusters.
+
 B3. List the packages or libraries you have chosen for Python or R, and justify how each item on the list supports the analysis.
 
 -NumPy: This library will help in performing numerical operations and manipulating arrays, which is crucial for preparing and analyzing the dataset.
