@@ -1,5 +1,5 @@
-# Data-Mining-II-
-## My Projects
+# Data-Mining-II-Task 1
+
 
 # Using K-Means Clustering to Identify Customer Segments and Reduce Churn at Telelink
 This project explores the application of K-Means clustering to analyze customer data, identifying distinct segments to help reduce churn at Telelink. 
