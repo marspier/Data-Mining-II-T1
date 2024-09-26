@@ -72,8 +72,8 @@ kmeans = KMeans(n_clusters=k, random_state=42) kmeans.fit(df_scaled)
 sse.append(kmeans.inertia_)
 # Plotting Elbow Method plt.figure(figsize=(8, 5))
 plt.plot(range(1, 11), sse, marker='o') plt.title('Elbow Method for Optimal K') plt.xlabel('Number of clusters') plt.ylabel('SSE (Sum of squared distances)') plt.show()
-# Performing K-means clustering with optimal k kmeans = KMeans(n_clusters=3, random_state=42) df['Cluster'] = kmeans.fit_predict(df_scaled)
-# Print cluster centers print("Cluster centers:") print(kmeans.cluster_centers_)
+Performing K-means clustering with optimal k kmeans = KMeans(n_clusters=3, random_state=42) df['Cluster'] = kmeans.fit_predict(df_scaled)
+Print cluster centers print("Cluster centers:") print(kmeans.cluster_centers_)
 
 Part V: Data Summary and Implications
 E1. The clusters created in this analysis were evaluated using the Silhouette Score, which provides insight into the quality of the clusters. A Silhouette Score of 0.35 indicates that the clusters are moderately well-defined, with some overlap. The analysis also included box plots to visualize differences in Monthly Charges across the clusters, revealing that Clusters 0 and 1 are similar, while Cluster 2 is distinctly different.
