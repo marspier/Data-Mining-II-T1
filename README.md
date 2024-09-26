@@ -63,15 +63,21 @@ D1.  Determine the optimal number of clusters in the data set, and describe the 
 The optimal number of clusters in the dataset was determined using the Elbow Method. This method involves plotting the Sum of Squared Errors (SSE) against different values of kkk (the number of clusters). The point at which the SSE begins to decrease at a slower rate (forming an "elbow" shape) indicates the optimal number of clusters. In this analysis, the optimal kkk was determined to be 3, as this point balances complexity and cluster quality.
 D2. Provide the code used to perform the clustering analysis technique
 import numpy as np
+
 from sklearn.preprocessing import StandardScaler
- from sklearn.cluster import KMeans import matplotlib.pyplot as plt
+
+from sklearn.cluster import KMeans import matplotlib.pyplot as plt
+
 df_scaled = StandardScaler().fit_transform(df[['Tenure', 'MonthlyCharge', 'Income']])
-# Using Elbow Method to determine optimal k sse = []
+
+Using Elbow Method to determine optimal k sse = []
 for k in range(1, 11):
 kmeans = KMeans(n_clusters=k, random_state=42) kmeans.fit(df_scaled)
 sse.append(kmeans.inertia_)
-# Plotting Elbow Method plt.figure(figsize=(8, 5))
-plt.plot(range(1, 11), sse, marker='o') plt.title('Elbow Method for Optimal K') plt.xlabel('Number of clusters') plt.ylabel('SSE (Sum of squared distances)') plt.show()
+
+Plotting Elbow Method plt.figure(figsize=(8, 5))
+plt.plot(range(1, 11), sse, marker='o') plt.title('Elbow Method for Optimal K') plt.xlabel('Number of clusters') 
+plt.ylabel('SSE (Sum of squared distances)') plt.show()
 Performing K-means clustering with optimal k kmeans = KMeans(n_clusters=3, random_state=42) df['Cluster'] = kmeans.fit_predict(df_scaled)
 Print cluster centers print("Cluster centers:") print(kmeans.cluster_centers_)
 
