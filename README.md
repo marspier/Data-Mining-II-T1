@@ -43,7 +43,7 @@ B3. List the packages or libraries you have chosen for Python or R, and justify 
 
 Part III: Data Preparation
 C1.  The primary preprocessing goal is to make sure that all the variables used in the clustering analysis are standardized and clean. One preprocessing goal is to standarize the tenure, income, and monthly charges to have similar scales.
-● ● ●
+
 C2. Tenure (continuous): Number of months a customer has been with Telelink.
 Monthly Charges (continuous): The amount a customer pays each month for Telelink services. 
 Income (continuous): The customer's annual income.
@@ -65,7 +65,6 @@ D2. Provide the code used to perform the clustering analysis technique
 import numpy as np
 from sklearn.preprocessing import StandardScaler
  from sklearn.cluster import KMeans import matplotlib.pyplot as plt
-# Assuming df is your cleaned and prepared DataFrame
 df_scaled = StandardScaler().fit_transform(df[['Tenure', 'MonthlyCharge', 'Income']])
 # Using Elbow Method to determine optimal k sse = []
 for k in range(1, 11):
