@@ -69,7 +69,7 @@ D1. PCA
     PC_df.head()
 
 
-2.  Identify the total number of principal components, using the elbow rule or the Kaiser criterion. Include a screenshot of the scree plot.
+2. Total number of principal components, using the elbow rule or the Kaiser criterion. 
 **Kaiser Criterion**
 
 
