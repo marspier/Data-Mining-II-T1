@@ -41,26 +41,26 @@ These variables will be used to form the dataset for PCA
 C2.  Standardize the continuous data set variables identified in part C1. 
 
 
-# List of continuous variables to standardize 
+**List of continuous variables to standardize**
 columns_to_standardize = ['Population', 'Age', 'Income', 'Tenure', 'Monthly Charge', 'Bandwidth_GB_Year', 'Children', 'Outage_sec_perweek']
- # Fit and transform the data using StandardScaler 
+ **Fit and transform the data using StandardScaler**
 scaler = StandardScaler()
 standardized_data = scaler.fit_transform(df[columns_to_standardize]) 
-# Convert the standardized data back to a DataFrame 
+**Convert the standardized data back to a DataFrame**
 standardized_df = pd.DataFrame(standardized_data, columns=columns_to_standardize) 
-# Normalize the standardized data using MinMaxScaler 
+**Normalize the standardized data using MinMaxScaler**
 min_max_scaler = MinMaxScaler() 
 norm_data = min_max_scaler.fit_transform(standardized_df) 
-# Convert the normalized data back to a DataFrame
+**Convert the normalized data back to a DataFrame**
  scaled_df = pd.DataFrame(norm_data, columns=standardized_df.columns) 
-# Save to CSV 
+**Save to CSV**
 scaled_df.to_csv('Scaled_df.csv', index=False) 
 scaled_df.head()
  
 Part IV: Analysis
 D1. PCA 
 1.  Determine the matrix of all the principal components.
-# Perform PCA to fit the data
+**Perform PCA to fit the data**
 pca = PCA() pca.fit(scaled_df[columns_to_standardize])
 PC_df = pd.DataFrame(data=pca_result, columns=['PC1', 'PC2'])
 loading_matrix = pd.DataFrame(pca.components_, columns=columns_to_standardize, index=['PC1', 'PC2'])
@@ -70,13 +70,13 @@ PC_df.head()
 
 
 2.  Identify the total number of principal components, using the elbow rule or the Kaiser criterion. Include a screenshot of the scree plot.
-# Kaiser Criterion
+**Kaiser Criterion**
 
 
 eigenvalues = pca.explained_variance_
 
 
-# Apply the Kaiser criterion
+**Apply the Kaiser criterion**
 kaiser_criterion = eigenvalues > 1
 number_of_components_to_keep = np.sum(kaiser_criterion)
 
@@ -87,7 +87,7 @@ Eigenvalues: [1.99362072 1.0422924 ]
 Components to retain (Kaiser Criterion): 2
 
 
-#Scree Plot
+**Scree Plot**
 
 
 pcomp = np.arange(1, len(eigenvalues) + 1)
@@ -109,9 +109,9 @@ plt.show()
 
 
 
-#Elbow Method
+**Elbow Method**
 explained_variance = pca.explained_variance_ratio_
-#Scree Plot
+**Scree Plot**
 plt.figure(figsize=(10, 6))
 plt.plot(range(1, len(explained_variance) + 1), explained_variance, marker='o')
 plt.title('Elbow Method for Optimal Number of Components')
