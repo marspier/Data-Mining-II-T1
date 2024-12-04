@@ -42,67 +42,67 @@ C2.  Standardize the continuous data set variables identified in part C1.
 
 
 **List of continuous variables to standardize**
-columns_to_standardize = ['Population', 'Age', 'Income', 'Tenure', 'Monthly Charge', 'Bandwidth_GB_Year', 'Children', 'Outage_sec_perweek']
+   columns_to_standardize = ['Population', 'Age', 'Income', 'Tenure', 'Monthly Charge', 'Bandwidth_GB_Year', 'Children', 'Outage_sec_perweek']
  **Fit and transform the data using StandardScaler**
-scaler = StandardScaler()
-standardized_data = scaler.fit_transform(df[columns_to_standardize]) 
+   scaler = StandardScaler()
+   standardized_data = scaler.fit_transform(df[columns_to_standardize]) 
 **Convert the standardized data back to a DataFrame**
-standardized_df = pd.DataFrame(standardized_data, columns=columns_to_standardize) 
+   standardized_df = pd.DataFrame(standardized_data, columns=columns_to_standardize) 
 **Normalize the standardized data using MinMaxScaler**
-min_max_scaler = MinMaxScaler() 
-norm_data = min_max_scaler.fit_transform(standardized_df) 
+   min_max_scaler = MinMaxScaler() 
+   norm_data = min_max_scaler.fit_transform(standardized_df) 
 **Convert the normalized data back to a DataFrame**
- scaled_df = pd.DataFrame(norm_data, columns=standardized_df.columns) 
+   scaled_df = pd.DataFrame(norm_data, columns=standardized_df.columns) 
 **Save to CSV**
-scaled_df.to_csv('Scaled_df.csv', index=False) 
-scaled_df.head()
+   scaled_df.to_csv('Scaled_df.csv', index=False) 
+   scaled_df.head()
  
 Part IV: Analysis
 D1. PCA 
 1.  Determine the matrix of all the principal components.
 **Perform PCA to fit the data**
-pca = PCA() pca.fit(scaled_df[columns_to_standardize])
-PC_df = pd.DataFrame(data=pca_result, columns=['PC1', 'PC2'])
-loading_matrix = pd.DataFrame(pca.components_, columns=columns_to_standardize, index=['PC1', 'PC2'])
+    pca = PCA() pca.fit(scaled_df[columns_to_standardize])
+    PC_df = pd.DataFrame(data=pca_result, columns=['PC1', 'PC2'])
+    loading_matrix = pd.DataFrame(pca.components_, columns=columns_to_standardize, index=['PC1', 'PC2'])
 
 
-PC_df.head()
+    PC_df.head()
 
 
 2.  Identify the total number of principal components, using the elbow rule or the Kaiser criterion. Include a screenshot of the scree plot.
 **Kaiser Criterion**
 
 
-eigenvalues = pca.explained_variance_
+  eigenvalues = pca.explained_variance_
 
 
 **Apply the Kaiser criterion**
-kaiser_criterion = eigenvalues > 1
-number_of_components_to_keep = np.sum(kaiser_criterion)
+  kaiser_criterion = eigenvalues > 1
+  number_of_components_to_keep = np.sum(kaiser_criterion)
 
 
-print("Eigenvalues:", eigenvalues)
-print("Components to retain (Kaiser Criterion):", number_of_components_to_keep)
-Eigenvalues: [1.99362072 1.0422924 ]
-Components to retain (Kaiser Criterion): 2
+  print("Eigenvalues:", eigenvalues)
+  print("Components to retain (Kaiser Criterion):", number_of_components_to_keep)
+  Eigenvalues: [1.99362072 1.0422924 ]
+  Components to retain (Kaiser Criterion): 2
 
 
 **Scree Plot**
 
 
-pcomp = np.arange(1, len(eigenvalues) + 1)
+  pcomp = np.arange(1, len(eigenvalues) + 1)
 
 
 
 
-plt.figure(figsize=(13, 6))
-plt.plot(pcomp, eigenvalues, 'b-', marker='o')  # Blue line with markers
-plt.title('Scree Plot (Kaiser Criterion)', fontsize=16)
-plt.xlabel('Number of Components', fontsize=16)
-plt.ylabel('Eigenvalues', fontsize=16)
-plt.axhline(y=1, color='g', linestyle='--')  # Green dashed line at y=1
-plt.grid()
-plt.show()
+  plt.figure(figsize=(13, 6))
+  plt.plot(pcomp, eigenvalues, 'b-', marker='o')  # Blue line with markers
+  plt.title('Scree Plot (Kaiser Criterion)', fontsize=16)
+  plt.xlabel('Number of Components', fontsize=16)
+  plt.ylabel('Eigenvalues', fontsize=16)
+  plt.axhline(y=1, color='g', linestyle='--')  # Green dashed line at y=1
+  plt.grid()
+  plt.show()
 
 
 
@@ -110,31 +110,30 @@ plt.show()
 
 
 **Elbow Method**
-explained_variance = pca.explained_variance_ratio_
+  explained_variance = pca.explained_variance_ratio_
 **Scree Plot**
-plt.figure(figsize=(10, 6))
-plt.plot(range(1, len(explained_variance) + 1), explained_variance, marker='o')
-plt.title('Elbow Method for Optimal Number of Components')
-plt.xlabel('Number of Components')
-plt.ylabel('Explained Variance Ratio')
-plt.grid()
-plt.axhline(y=0.1, color='r', linestyle='--')  # Optional: Add a horizontal line for reference
-plt.show()
+  plt.figure(figsize=(10, 6))
+  plt.plot(range(1, len(explained_variance) + 1), explained_variance, marker='o')
+  plt.title('Elbow Method for Optimal Number of Components')
+  plt.xlabel('Number of Components')
+  plt.ylabel('Explained Variance Ratio')
+  plt.grid()
+  plt.axhline(y=0.1, color='r', linestyle='--')  # Optional: Add a horizontal line for reference
+  plt.show()
 
 3.  Identify the variance of each of the principal components identified in part D2.
 
 
-The variance of each of the principal components identified in part D2 is shown by the eigenvalues of the principal components. Based on the output of the PCA, the variances of the principal components are:
-PC1: The variance captured by the first principal component is 1.9936.
-PC2: The variance captured by the second principal component is 1.0423.
-These eigenvalues indicate the amount of variance each component captures from the dataset, with PC1 capturing the largest portion of the variance. 
+    The variance of each of the principal components identified in part D2 is shown by the eigenvalues of the principal components. Based on the output of the PCA, the variances of the principal components are:
+    PC1: The variance captured by the first principal component is 1.9936.
+    PC2: The variance captured by the second principal component is 1.0423.
+    These eigenvalues indicate the amount of variance each component captures from the dataset, with PC1 capturing the largest portion of the variance. 
 4.  Identify the total variance captured by the principal components identified in part D2.
-These eigenvalues indicate that PC1 captures more variance than PC2, with PC1 explaining more of the underlying variability in the data. The explained variance ratio is [0.24917767, 0.13027352]; in terms of percentages, it is 24.9% and 13.0%. This means that 24.9% of all the variability in the dataset can be explained by PC1 and 13% by PC2.Based on Saturn Cloud,  “Explained variance ratio is a measure of the proportion of the total variance in the original dataset that is explained by each principal component. The explained variance ratio of a principal component is equal to the ratio of its eigenvalue to the sum of the eigenvalues of all the principal components”(Saturn). 
-5.  Summarize the results of your data analysis.
+    These eigenvalues indicate that PC1 captures more variance than PC2, with PC1 explaining more of the underlying variability in the data. The explained variance ratio is [0.24917767, 0.13027352]; in terms of percentages, it is 24.9% and 13.0%. This means that 24.9% of all the variability in the dataset can be explained by PC1 and 13% by PC2.Based on Saturn Cloud,  “Explained variance ratio is a measure of the proportion of the total variance in the original dataset that is explained by each principal component. The explained variance ratio of a principal component is equal to the ratio of its eigenvalue to the sum of the eigenvalues of all the principal components”(Saturn). 
+5.  Summary of my results
 
-
-Based on the Kaiser criterion, it shows that I kept  two principal components, and  each had an eigenvalue above 1 ( as seen above under D2.  in figure 2) The first principal component (PC1) has an eigenvalue of 1.99, which explains 24.9% of the total variance, and the second component (PC2) has an eigenvalue of about 1.04, explaining 13% of the variance. Together, these two components explain 37.9% of the total variance in the dataset, which is a reasonable amount. The total variance is 3.036 therefore the two principal components captured around 37.9% of the total variance in the 3.036.  
-Looking at the loading matrix, PC1 is strongly linked to Tenure and Bandwidth_GB_Year, meaning these variables tend to change together in the data. PC2 has high values for Children, Age, and Income, which capture demographic details about the customers. For Age, the loading is high but negative, showing an opposite trend. The loadings for Children and Income are positive, showing they tend to increase together. This shows that age, number of children, and income levels are related.
+    Based on the Kaiser criterion, it shows that I kept  two principal components, and  each had an eigenvalue above 1 ( as seen above under D2.  in figure 2) The first principal component (PC1) has an eigenvalue of 1.99, which explains 24.9% of the total variance, and the second component (PC2) has an eigenvalue of about 1.04, explaining 13% of the variance. Together, these two components explain 37.9% of the total variance in the dataset, which is a reasonable amount. The total variance is 3.036 therefore the two principal components captured around 37.9% of the total variance in the 3.036.  
+    Looking at the loading matrix, PC1 is strongly linked to Tenure and Bandwidth_GB_Year, meaning these variables tend to change together in the data. PC2 has high values for Children, Age, and Income, which capture demographic details about the customers. For Age, the loading is high but negative, showing an opposite trend. The loadings for Children and Income are positive, showing they tend to increase together. This shows that age, number of children, and income levels are related.
 Under Figure 3 (in D2), we can observe that the smaller range on the PC1 axis and the larger range on the PC2 axis indicate that PC1 has less variation, while PC2 has greater variation. Therefore, PC1 captures more specific patterns in the data, whereas PC2 captures broader, more diverse patterns. When combined with the results from the loading matrix, we can infer that PC1 reflects more specific factors related to Tenure and Bandwidth usage, while PC2 captures a wider range of patterns linked to Age, Income, and Children.
 Under Figure 4 (in D2) it’s showing at what percentage the cumulative  variance is being explained by each principal component. 
 
